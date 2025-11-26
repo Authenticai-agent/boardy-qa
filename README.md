@@ -639,6 +639,8 @@ pytest tests/test_performance.py -v
 
 ### ✅ **Current Status - v1.0 (Production Ready)**
 
+*Numbers below are target characteristics for a scaled deployment, not current hosted infra.*
+
 <div align="center">
 
 **🚀 Live & Operational • Enterprise Grade • Production Deployed**
