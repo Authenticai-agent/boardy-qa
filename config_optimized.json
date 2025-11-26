@@ -1,0 +1,132 @@
+{
+  "rules": {
+    "enabled_rules": [
+      {
+        "name": "LengthRule",
+        "enabled": true,
+        "config": {
+          "max_length_chars": 800,
+          "warning_length_chars": 600
+        }
+      },
+      {
+        "name": "StyleRule",
+        "enabled": true,
+        "config": {
+          "forbidden_phrases": [
+            "i am an ai",
+            "i am unable to",
+            "i cannot",
+            "as an ai",
+            "as a language model",
+            "i am a language model",
+            "i do not have access",
+            "i am not able to",
+            "i cannot provide",
+            "i am unable to provide",
+            "i cannot access",
+            "i am unable to access",
+            "i cannot read",
+            "i am unable to read",
+            "i cannot open",
+            "i am unable to open"
+          ],
+          "max_exclamation_marks": 2,
+          "require_capitalization": true,
+          "forbidden_sentence_starters": [
+            "i am",
+            "i cannot",
+            "i am unable",
+            "as an",
+            "as a"
+          ]
+        }
+      },
+      {
+        "name": "QuestionFollowupRule",
+        "enabled": true,
+        "config": {
+          "keyword_overlap_threshold": 0.3,
+          "require_answer": true,
+          "question_indicators": [
+            "?",
+            "how",
+            "what",
+            "when",
+            "where",
+            "why",
+            "which",
+            "can",
+            "could",
+            "would",
+            "should",
+            "is",
+            "are",
+            "do",
+            "does"
+          ],
+          "non_answer_phrases": [
+            "i am unable to",
+            "i cannot",
+            "i don't have access",
+            "i am not able",
+            "i am not sure",
+            "i don't know",
+            "that's not something",
+            "i'm not able"
+          ]
+        }
+      },
+      {
+        "name": "TurnEndingRule",
+        "enabled": true,
+        "config": {
+          "max_question_length": 200,
+          "max_question_sentences": 2,
+          "require_simple_questions": true,
+          "complex_indicators": [
+            "given that",
+            "considering that",
+            "based on",
+            "taking into account",
+            "with respect to"
+          ]
+        }
+      },
+      {
+        "name": "ConversationHealthRule",
+        "enabled": true,
+        "config": {
+          "max_consecutive_assistant": 2,
+          "max_assistant_to_user_ratio": 2.0,
+          "min_user_responses": 1,
+          "max_response_gap_minutes": 1440,
+          "require_user_engagement": true
+        }
+      }
+    ]
+  },
+  "severity_weights": {
+    "StyleRule": {
+      "forbidden_phrase": "high",
+      "capitalization": "medium",
+      "exclamation_marks": "low"
+    },
+    "QuestionFollowupRule": {
+      "no_response": "high",
+      "irrelevant_response": "medium"
+    },
+    "LengthRule": {
+      "too_long": "medium",
+      "too_short": "low"
+    },
+    "TurnEndingRule": {
+      "complex_question": "medium",
+      "multiple_questions": "low"
+    },
+    "ConversationHealthRule": {
+      "monopolizing": "high",
+      "poor_balance": "medium"
+    }
+  }
+}

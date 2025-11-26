@@ -135,6 +135,50 @@
             font-weight: 500;
         }
         
+        .status-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .status-section h4 {
+            margin-bottom: 10px;
+            color: #495057;
+            font-size: 16px;
+        }
+        
+        .system-info {
+            margin-top: 10px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 13px;
+        }
+        
+        .status-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .status-value {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .status-value.loading {
+            color: #ffc107;
+        }
+        
+        .status-value.error {
+            color: #dc3545;
+        }
+        
         .api-ready {
             background: #d4edda;
             color: #155724;
@@ -439,7 +483,24 @@ Example:
                     <button class="btn btn-success" onclick="loadSample()">📋 Load Sample</button>
                 </div>
                 
-                <div id="apiStatus" class="api-status api-offline">🔍 Checking API...</div>
+                <div class="status-section">
+                    <h4>🔧 System Status</h4>
+                    <div id="apiStatus" class="api-status api-offline">🔍 Checking API...</div>
+                    <div id="systemInfo" class="system-info">
+                        <div class="status-item">
+                            <span class="status-label">🤖 Rules Engine:</span>
+                            <span id="rulesStatus" class="status-value">Loading...</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">📊 Configuration:</span>
+                            <span id="configStatus" class="status-value">Optimized</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">⚡ Performance:</span>
+                            <span id="perfStatus" class="status-value">Ready</span>
+                        </div>
+                    </div>
+                </div>
                 
                 <div id="jsonPreview" class="json-preview" style="display: none;">
                     <h4>🔧 Generated JSON Preview:</h4>
@@ -465,17 +526,44 @@ Example:
 
         async function checkApiServer() {
             const statusElement = document.getElementById('apiStatus');
+            const rulesStatus = document.getElementById('rulesStatus');
+            const configStatus = document.getElementById('configStatus');
+            const perfStatus = document.getElementById('perfStatus');
+            
             try {
                 const response = await fetch('http://localhost:8000/health');
                 if (response.ok) {
+                    const health = await response.json();
                     statusElement.textContent = '✅ API Ready - Full Analysis Available';
                     statusElement.className = 'api-status api-ready';
+                    
+                    // Update system status
+                    rulesStatus.textContent = '5 Rules Active';
+                    rulesStatus.className = 'status-value';
+                    
+                    configStatus.textContent = 'Optimized';
+                    configStatus.className = 'status-value';
+                    
+                    perfStatus.textContent = 'Ready';
+                    perfStatus.className = 'status-value';
+                    
                     console.log('✅ API server is running');
                     return true;
                 }
             } catch (error) {
                 statusElement.textContent = '⚠️ API Offline - Simulation Mode';
                 statusElement.className = 'api-status api-offline';
+                
+                // Update system status for offline mode
+                rulesStatus.textContent = '5 Rules (Simulated)';
+                rulesStatus.className = 'status-value';
+                
+                configStatus.textContent = 'Default';
+                configStatus.className = 'status-value loading';
+                
+                perfStatus.textContent = 'Limited';
+                perfStatus.className = 'status-value error';
+                
                 console.log('🚀 API server not running, using simulation mode');
                 return false;
             }
