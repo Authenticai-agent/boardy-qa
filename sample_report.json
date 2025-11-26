@@ -1,0 +1,282 @@
+{
+  "total_conversations": 3,
+  "total_messages": 10,
+  "user_messages": 5,
+  "assistant_messages": 5,
+  "total_failures": 11,
+  "high_severity_failures": 0,
+  "medium_severity_failures": 9,
+  "low_severity_failures": 2,
+  "failure_rate": 0.4782608695652174,
+  "rules_run": 5,
+  "rule_failures": {
+    "StyleRule": [
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i am an ai'",
+        "details": {
+          "message_id": "msg_002",
+          "forbidden_phrase": "i am an ai",
+          "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'as an ai'",
+        "details": {
+          "message_id": "msg_002",
+          "forbidden_phrase": "as an ai",
+          "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i cannot'",
+        "details": {
+          "message_id": "msg_002",
+          "forbidden_phrase": "i cannot",
+          "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'as a language model'",
+        "details": {
+          "message_id": "msg_004",
+          "forbidden_phrase": "as a language model",
+          "text_preview": "as a language model, I can help with general questions and provide information. I do not have access to real-time data or personal information."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i do not have'",
+        "details": {
+          "message_id": "msg_004",
+          "forbidden_phrase": "i do not have",
+          "text_preview": "as a language model, I can help with general questions and provide information. I do not have access to real-time data or personal information."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "low",
+        "message": "Assistant message doesn't start with capital letter",
+        "details": {
+          "message_id": "msg_004",
+          "text_start": "as a language model, I can help with general quest"
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "low",
+        "message": "Too many exclamation marks: 13 (max: 3)",
+        "details": {
+          "message_id": "msg_006",
+          "exclamation_count": 13,
+          "max_allowed": 3
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i am not able'",
+        "details": {
+          "message_id": "msg_008",
+          "forbidden_phrase": "i am not able",
+          "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i am unable'",
+        "details": {
+          "message_id": "msg_008",
+          "forbidden_phrase": "i am unable",
+          "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'i do not have'",
+        "details": {
+          "message_id": "msg_008",
+          "forbidden_phrase": "i do not have",
+          "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+        }
+      },
+      {
+        "rule_name": "StyleRule",
+        "severity": "medium",
+        "message": "Assistant message contains forbidden phrase: 'as an ai'",
+        "details": {
+          "message_id": "msg_010",
+          "forbidden_phrase": "as an ai",
+          "text_preview": "I understand your frustration. As an AI language model, I have limitations in what I can access and provide."
+        }
+      }
+    ]
+  },
+  "conversations": [
+    {
+      "conversation_id": "conv_001",
+      "stats": {
+        "total_messages": 4,
+        "user_messages": 2,
+        "assistant_messages": 2,
+        "total_failures": 6,
+        "high_severity_failures": 0,
+        "medium_severity_failures": 5,
+        "low_severity_failures": 1,
+        "failure_rate": 0.6
+      },
+      "failures": [
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i am an ai'",
+          "details": {
+            "message_id": "msg_002",
+            "forbidden_phrase": "i am an ai",
+            "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'as an ai'",
+          "details": {
+            "message_id": "msg_002",
+            "forbidden_phrase": "as an ai",
+            "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i cannot'",
+          "details": {
+            "message_id": "msg_002",
+            "forbidden_phrase": "i cannot",
+            "text_preview": "I am an AI assistant and I cannot help with that specific request. As an AI, I have limitations in my capabilities."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'as a language model'",
+          "details": {
+            "message_id": "msg_004",
+            "forbidden_phrase": "as a language model",
+            "text_preview": "as a language model, I can help with general questions and provide information. I do not have access to real-time data or personal information."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i do not have'",
+          "details": {
+            "message_id": "msg_004",
+            "forbidden_phrase": "i do not have",
+            "text_preview": "as a language model, I can help with general questions and provide information. I do not have access to real-time data or personal information."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "low",
+          "message": "Assistant message doesn't start with capital letter",
+          "details": {
+            "message_id": "msg_004",
+            "text_start": "as a language model, I can help with general quest"
+          }
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_002",
+      "stats": {
+        "total_messages": 2,
+        "user_messages": 1,
+        "assistant_messages": 1,
+        "total_failures": 1,
+        "high_severity_failures": 0,
+        "medium_severity_failures": 0,
+        "low_severity_failures": 1,
+        "failure_rate": 0.2
+      },
+      "failures": [
+        {
+          "rule_name": "StyleRule",
+          "severity": "low",
+          "message": "Too many exclamation marks: 13 (max: 3)",
+          "details": {
+            "message_id": "msg_006",
+            "exclamation_count": 13,
+            "max_allowed": 3
+          }
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_003",
+      "stats": {
+        "total_messages": 4,
+        "user_messages": 2,
+        "assistant_messages": 2,
+        "total_failures": 4,
+        "high_severity_failures": 0,
+        "medium_severity_failures": 4,
+        "low_severity_failures": 0,
+        "failure_rate": 0.5
+      },
+      "failures": [
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i am not able'",
+          "details": {
+            "message_id": "msg_008",
+            "forbidden_phrase": "i am not able",
+            "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i am unable'",
+          "details": {
+            "message_id": "msg_008",
+            "forbidden_phrase": "i am unable",
+            "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'i do not have'",
+          "details": {
+            "message_id": "msg_008",
+            "forbidden_phrase": "i do not have",
+            "text_preview": "I am unable to provide specific return policy information as I do not have access to current company policies. I am not able to help with detailed policy questions."
+          }
+        },
+        {
+          "rule_name": "StyleRule",
+          "severity": "medium",
+          "message": "Assistant message contains forbidden phrase: 'as an ai'",
+          "details": {
+            "message_id": "msg_010",
+            "forbidden_phrase": "as an ai",
+            "text_preview": "I understand your frustration. As an AI language model, I have limitations in what I can access and provide."
+          }
+        }
+      ]
+    }
+  ],
+  "generated_at": "2025-11-26T15:32:32.822691"
+}

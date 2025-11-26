@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boardy QA - Definitely Working Analyzer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 700px;
+        }
+        
+        .input-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .results-section {
+            padding: 30px;
+            background: white;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .paste-area {
+            width: 100%;
+            height: 400px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .paste-area:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .api-status {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .api-ready {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .api-offline {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #6c757d;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .stat-high { color: #dc3545; }
+        .stat-medium { color: #ffc107; }
+        .stat-low { color: #28a745; }
+        .stat-primary { color: #007bff; }
+        
+        .violations-section {
+            margin-top: 30px;
+        }
+        
+        .violations-header {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .violation-group {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .violation-group-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .violation-count {
+            background: #007bff;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .violation-item {
+            padding: 20px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .violation-item:last-child {
+            border-bottom: none;
+        }
+        
+        .severity-badge {
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            color: white;
+            margin-right: 10px;
+            text-transform: uppercase;
+        }
+        
+        .severity-high { 
+            background: #dc3545; 
+        }
+        .severity-medium { 
+            background: #ffc107; 
+            color: #212529;
+        }
+        .severity-low { 
+            background: #28a745; 
+        }
+        
+        .violation-message {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        
+        .violation-details {
+            font-size: 0.9em;
+            color: #6c757d;
+            line-height: 1.4;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #007bff;
+        }
+        
+        .violation-explanation {
+            margin-top: 15px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 15px;
+        }
+        
+        .explanation-section {
+            margin-bottom: 15px;
+        }
+        
+        .explanation-section h4 {
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .explanation-section p {
+            margin: 0;
+            line-height: 1.5;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 8px;
+        }
+        
+        .example-bad {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85em;
+        }
+        
+        .example-good {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85em;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .empty-state p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .json-preview {
+            margin-top: 20px;
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .json-preview h4 {
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
+        
+        .json-content {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .input-section {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Boardy QA - Definitely Working Analyzer</h1>
+            <p>Guaranteed to show analysis results, not just JSON</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2 class="section-title">📝 Paste Your Conversation</h2>
+                <textarea 
+                    id="pasteArea" 
+                    class="paste-area" 
+                    placeholder="Paste your Boardy conversation here...
+
+Example:
+[11/20/25, 8:23:03 PM] Boardy: I am here and I cannot help with that specific request.
+[11/20/25, 8:23:15 PM] Jurate: Can you help me?
+[11/20/25, 8:23:20 PM] Boardy: i am unable to provide the assistance you need."
+                ></textarea>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="analyzeConversation()">🔍 Analyze Conversation</button>
+                    <button class="btn btn-secondary" onclick="clearAll()">🗑️ Clear</button>
+                    <button class="btn btn-success" onclick="loadSample()">📋 Load Sample</button>
+                </div>
+                
+                <div id="apiStatus" class="api-status api-offline">🔍 Checking API...</div>
+                
+                <div id="jsonPreview" class="json-preview" style="display: none;">
+                    <h4>🔧 Generated JSON Preview:</h4>
+                    <div class="json-content" id="jsonContent"></div>
+                </div>
+            </div>
+            
+            <div class="results-section">
+                <h2 class="section-title">📊 Analysis Results</h2>
+                <div id="resultsContent">
+                    <div class="empty-state">
+                        <h3>Ready to Analyze</h3>
+                        <p>Paste your Boardy conversation on the left and click "Analyze Conversation" to see detailed quality metrics and violations.</p>
+                        <p>✨ This version GUARANTEES to show analysis results!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', checkApiServer);
+
+        async function checkApiServer() {
+            const statusElement = document.getElementById('apiStatus');
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                if (response.ok) {
+                    statusElement.textContent = '✅ API Ready - Full Analysis Available';
+                    statusElement.className = 'api-status api-ready';
+                    console.log('✅ API server is running');
+                    return true;
+                }
+            } catch (error) {
+                statusElement.textContent = '⚠️ API Offline - Simulation Mode';
+                statusElement.className = 'api-status api-offline';
+                console.log('🚀 API server not running, using simulation mode');
+                return false;
+            }
+        }
+
+        function loadSample() {
+            const sampleText = `[11/20/25, 8:23:03 PM] Boardy: I am here and I cannot help with that specific request. As an AI assistant, I have limitations in my capabilities.
+[11/20/25, 8:23:15 PM] Jurate: Can you help me?
+[11/20/25, 8:23:20 PM] Boardy: i am unable to provide the assistance you need. i do not have access to those resources.
+[11/20/25, 8:23:25 PM] Jurate: What can you do?
+[11/20/25, 8:23:30 PM] Boardy: I can help with general questions and provide information. As an AI, I don't have access to specific data or personal information.
+[11/20/25, 8:23:35 PM] Jurate: Can you analyze my conversation?
+[11/20/25, 8:23:40 PM] Boardy: I am unable to analyze conversations directly. I am an AI assistant with specific limitations.`;
+            
+            document.getElementById('pasteArea').value = sampleText;
+        }
+
+        async function analyzeConversation() {
+            const pasteArea = document.getElementById('pasteArea');
+            const text = pasteArea.value.trim();
+            
+            if (!text) {
+                showError('Please paste a conversation to analyze');
+                return;
+            }
+
+            const resultsContent = document.getElementById('resultsContent');
+            resultsContent.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <h3>🔄 Analyzing Conversation...</h3>
+                    <p>Parsing conversation format and running quality analysis...</p>
+                </div>
+            `;
+
+            try {
+                console.log('🔍 Sending analysis request...');
+                
+                const response = await fetch('http://localhost:8000/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text
+                    })
+                });
+
+                console.log('📡 Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('📊 Full API response:', result);
+
+                if (result.success && result.data) {
+                    console.log('✅ API Response Success - Data:', result.data);
+                    
+                    // Show JSON preview (optional)
+                    const parsedData = parseWhatsAppConversation(text);
+                    showJsonPreview(parsedData);
+                    
+                    // DEFINITELY show the analysis results
+                    displayAnalysisResults(result.data);
+                    console.log('✅ Analysis results GUARANTEED to be displayed');
+                } else {
+                    showError(result.error || 'Analysis failed');
+                    console.log('❌ Analysis failed:', result.error);
+                }
+            } catch (error) {
+                console.log('🚀 API not available, using simulation:', error.message);
+                const jsonData = parseWhatsAppConversation(text);
+                showJsonPreview(jsonData);
+                simulateAnalysis(jsonData);
+            }
+        }
+
+        function displayAnalysisResults(data) {
+            console.log('🎨 GUARANTEED Display Function - Data:', data);
+            console.log('📊 Data keys:', Object.keys(data));
+            console.log('📊 Rule failures:', data.rule_failures);
+            
+            const resultsContent = document.getElementById('resultsContent');
+            
+            // GUARANTEED HTML generation
+            let html = `
+                <h2 style="color: #333; margin-bottom: 20px;">📊 Analysis Results</h2>
+                
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-value stat-primary">${data.total_messages || 0}</div>
+                        <div class="stat-label">Total Messages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-primary">${data.user_messages || 0}</div>
+                        <div class="stat-label">User Messages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-primary">${data.assistant_messages || 0}</div>
+                        <div class="stat-label">Assistant Messages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-high">${data.total_failures || 0}</div>
+                        <div class="stat-label">Total Failures</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-medium">${((data.failure_rate || 0) * 100).toFixed(1)}%</div>
+                        <div class="stat-label">Failure Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-primary">${data.rules_run || 0}</div>
+                        <div class="stat-label">Rules Run</div>
+                    </div>
+                </div>
+            `;
+
+            // Add severity breakdown
+            html += `
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-value stat-high">${data.high_severity_failures || 0}</div>
+                        <div class="stat-label">High Severity</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-medium">${data.medium_severity_failures || 0}</div>
+                        <div class="stat-label">Medium Severity</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-low">${data.low_severity_failures || 0}</div>
+                        <div class="stat-label">Low Severity</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-primary">${data.total_conversations || 0}</div>
+                        <div class="stat-label">Conversations</div>
+                    </div>
+                </div>
+            `;
+
+            console.log('📊 Rule failures structure:', data.rule_failures);
+            console.log('📊 Rule failures keys:', data.rule_failures ? Object.keys(data.rule_failures) : 'none');
+
+            // GUARANTEED violations display
+            if (data.rule_failures && Object.keys(data.rule_failures).length > 0) {
+                html += '<div class="violations-section">';
+                html += '<div class="violations-header">🔍 Detailed Violations Analysis</div>';
+                
+                for (const [ruleName, violations] of Object.entries(data.rule_failures)) {
+                    console.log(`🔍 GUARANTEED Processing rule: ${ruleName}, violations: ${violations.length}`);
+                    html += `
+                        <div class="violation-group">
+                            <div class="violation-group-header">
+                                <span>📋 ${ruleName}</span>
+                                <span class="violation-count">${violations.length} violations</span>
+                            </div>
+                    `;
+                    
+                    violations.forEach((violation, index) => {
+                        const explanation = getViolationExplanation(violation);
+                        html += `
+                            <div class="violation-item">
+                                <div>
+                                    <span class="severity-badge severity-${violation.severity}">${violation.severity}</span>
+                                    <span class="violation-message">${violation.message}</span>
+                                </div>
+                                ${violation.details ? `
+                                    <div class="violation-details">
+                                        <strong>Details:</strong> ${formatViolationDetails(violation.details)}
+                                    </div>
+                                ` : ''}
+                                <div class="violation-explanation">
+                                    <div class="explanation-section">
+                                        <h4>🔍 What's Wrong:</h4>
+                                        <p>${explanation.problem}</p>
+                                    </div>
+                                    <div class="explanation-section">
+                                        <h4>⚠️ Why It Matters:</h4>
+                                        <p>${explanation.impact}</p>
+                                    </div>
+                                    <div class="explanation-section">
+                                        <h4>💡 How to Fix:</h4>
+                                        <p>${explanation.solution}</p>
+                                    </div>
+                                    ${explanation.example ? `
+                                        <div class="explanation-section">
+                                            <h4>📝 Example:</h4>
+                                            <div class="example-box">
+                                                <div class="example-bad">❌ ${explanation.example.bad}</div>
+                                                <div class="example-good">✅ ${explanation.example.good}</div>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                html += '</div>';
+            } else {
+                html += '<div class="success">';
+                html += '<h3>✅ Excellent Conversation Quality!</h3>';
+                html += '<p>No violations detected. The conversation follows all quality guidelines and best practices.</p>';
+                html += '</div>';
+            }
+
+            // GUARANTEED DOM update
+            console.log('🎨 Setting HTML content...');
+            resultsContent.innerHTML = html;
+            console.log('✅ GUARANTEED: Analysis results displayed in DOM');
+            
+            // Double-check it worked
+            setTimeout(() => {
+                const currentContent = resultsContent.innerHTML;
+                console.log('🔍 Verification - Current HTML length:', currentContent.length);
+                console.log('🔍 Verification - Contains violations:', currentContent.includes('violations-section'));
+                console.log('🔍 Verification - Contains stats:', currentContent.includes('stats-overview'));
+            }, 100);
+        }
+
+        function getViolationExplanation(violation) {
+            const explanations = {
+                'StyleRule': {
+                    'Assistant message contains forbidden phrase: \'i cannot\'': {
+                        problem: "The assistant is using the phrase 'I cannot' which is overly formal and robotic. This creates distance between the assistant and user.",
+                        impact: "Using overly formal language like 'I cannot' makes the conversation feel less natural and more like interacting with a machine rather than a helpful assistant. It can make users feel like they're getting a canned, impersonal response.",
+                        solution: "Replace 'I cannot' with more natural, helpful alternatives like 'I'm not able to', 'I don't have access to', or better yet, explain what you CAN do instead of what you cannot do.",
+                        example: {
+                            bad: "I cannot help with that specific request.",
+                            good: "I'm not able to help with that specific request, but I can assist you with..."
+                        }
+                    },
+                    'Assistant message contains forbidden phrase: \'i am unable\'': {
+                        problem: "The assistant is using the phrase 'I am unable' which is overly formal and creates unnecessary distance from the user.",
+                        impact: "This formal language pattern makes the assistant sound robotic and less approachable. Users prefer conversational, natural language that feels more human-like and helpful.",
+                        solution: "Use more conversational alternatives like 'I'm not able to', 'I can't', or better yet, focus on what you CAN do to help the user.",
+                        example: {
+                            bad: "I am unable to provide the assistance you need.",
+                            good: "I'm not able to provide that specific assistance, but here's what I can help you with..."
+                        }
+                    },
+                    'Assistant message contains forbidden phrase: \'as an ai\'': {
+                        problem: "The assistant is explicitly mentioning that it's an AI, which breaks the natural conversation flow and reminds users they're talking to a machine.",
+                        impact: "Explicitly stating 'as an AI' or 'I am an AI' creates psychological distance and reinforces that users are interacting with technology rather than a helpful assistant. This reduces engagement and makes the conversation feel more transactional.",
+                        solution: "Never explicitly mention being an AI. Instead, focus on your capabilities and limitations in natural, conversational terms. Explain what you can and cannot do without referencing your AI nature.",
+                        example: {
+                            bad: "As an AI, I have limitations in my capabilities.",
+                            good: "I have some limitations with that type of request, but I can help you with..."
+                        }
+                    },
+                    "Assistant message contains forbidden phrase: 'i am an ai'": {
+                        problem: "The assistant is explicitly identifying as an AI, which breaks the conversational illusion and creates unnecessary technical disclosure.",
+                        impact: "This disclosure immediately reminds users they're talking to a machine, reducing the natural flow of conversation and potentially making users less comfortable sharing information or engaging deeply.",
+                        solution: "Avoid any explicit mention of being AI. Instead, frame limitations and capabilities in natural, human-like terms without technical labels.",
+                        example: {
+                            bad: "I am an AI assistant with specific limitations.",
+                            good: "I have some limitations with that request, but I can help you with other things."
+                        }
+                    },
+                    "Assistant message doesn't start with capital letter": {
+                        problem: "The assistant's message starts with a lowercase letter, which violates proper grammar and appears unprofessional.",
+                        impact: "Starting sentences with lowercase letters looks sloppy and unprofessional. It suggests poor attention to detail and can make the assistant seem less credible and trustworthy.",
+                        solution: "Always start sentences with a capital letter, following standard English grammar rules. This maintains professionalism and readability.",
+                        example: {
+                            bad: "i am unable to provide the assistance you need.",
+                            good: "I am unable to provide the assistance you need."
+                        }
+                    }
+                },
+                'QuestionFollowupRule': {
+                    'Assistant may not be responding to user question': {
+                        problem: "The assistant's response doesn't appear to directly address or answer the user's question. This suggests the assistant may be avoiding or missing the user's actual query.",
+                        impact: "When users ask questions and don't get direct answers, they become frustrated and feel unheard. This breaks trust and makes the conversation feel unhelpful. Users expect their questions to be acknowledged and addressed directly.",
+                        solution: "Always directly address user questions first, even if you need to decline or redirect. Acknowledge what they asked, provide a direct answer (even if it's 'no' or 'I can't'), then offer alternatives if appropriate.",
+                        example: {
+                            bad: "i am unable to provide the assistance you need. i do not have access to those resources.",
+                            good: "I can't directly help with that specific request because I don't have access to those resources. However, I can help you with alternative approaches or find other ways to assist you."
+                        }
+                    }
+                },
+                'LengthRule': {
+                    'Assistant message too long': {
+                        problem: "The assistant's response is too lengthy, which can overwhelm users and make it difficult to find the key information.",
+                        impact: "Long responses are hard to read and digest. Users often skim or miss important details when faced with walls of text. This reduces the effectiveness of communication and can lead to follow-up questions about the same topic.",
+                        solution: "Break long responses into shorter, focused paragraphs. Use bullet points or numbered lists for complex information. Aim for 2-4 sentences per paragraph and consider if some information could be provided after user confirmation.",
+                        example: {
+                            bad: "I am here and I cannot help with that specific request. As an AI assistant, I have limitations in my capabilities and there are various reasons why I might not be able to assist with particular types of requests including but not limited to access restrictions, technical limitations, policy constraints, and other factors that affect my ability to provide comprehensive assistance across all possible domains and topics that users might inquire about.",
+                            good: "I can't help with that specific request due to some limitations. I'm designed to assist with certain types of questions and tasks. Could you tell me more about what you're trying to accomplish? I might be able to help in a different way."
+                        }
+                    }
+                },
+                'TurnEndingRule': {
+                    'Assistant question too complex': {
+                        problem: "The assistant is asking a question that is too complex or convoluted, making it difficult for users to understand and respond appropriately.",
+                        impact: "Complex questions confuse users and may lead to misunderstandings or incorrect responses. Users might feel intimidated or frustrated, reducing their willingness to engage in the conversation.",
+                        solution: "Keep questions simple and focused. Ask one question at a time, use clear language, and avoid multiple clauses or complex sentence structures. Break complex questions into simpler, sequential questions if needed.",
+                        example: {
+                            bad: "Given the various constraints and limitations we've discussed regarding your specific requirements and the different options available, which particular approach would you prefer to pursue considering all the factors we've mentioned?",
+                            good: "Which approach would you prefer: option A or option B?"
+                        }
+                    }
+                },
+                'ConversationHealthRule': {
+                    'Too many consecutive assistant messages': {
+                        problem: "The assistant is sending multiple messages in a row without user input, which can feel overwhelming and monopolize the conversation.",
+                        impact: "Consecutive assistant messages without user breaks can make users feel like they're being lectured rather than having a dialogue. This disrupts the natural turn-taking of conversation and can make users disengage.",
+                        solution: "Wait for user input between messages. If you need to provide multiple pieces of information, consolidate them into a single, well-structured response or ask for permission before continuing.",
+                        example: {
+                            bad: "Here's the first point... [sends another message] Here's the second point... [sends another message] And here's the third point...",
+                            good: "I have three key points to share with you. Would you like me to go through them all, or would you prefer to discuss them one at a time?"
+                        }
+                    }
+                }
+            };
+
+            // Return the explanation or a default one
+            const key = `${violation.rule_name}: ${violation.message}`;
+            return explanations[violation.rule_name]?.[violation.message] || {
+                problem: "This violation indicates a quality issue in the conversation that needs attention.",
+                impact: "Quality issues can affect user experience, conversation effectiveness, and overall satisfaction with the interaction.",
+                solution: "Review the specific details of this violation and adjust the conversation approach to follow best practices and guidelines.",
+                example: null
+            };
+        }
+
+        function formatViolationDetails(details) {
+            if (!details) return '';
+            return Object.entries(details)
+                .map(([key, value]) => {
+                    if (typeof value === 'string' && value.length > 100) {
+                        value = value.substring(0, 100) + '...';
+                    }
+                    return `<strong>${key}:</strong> ${value}`;
+                })
+                .join(' | ');
+        }
+
+        function parseWhatsAppConversation(text) {
+            const lines = text.split('\n').filter(line => line.trim());
+            const conversations = {};
+            let currentConversationId = 'paste_conv';
+            let messageCounter = 1;
+
+            const patterns = [
+                /^\[(\d{1,2}\/\d{1,2}\/\d{2,4}),?\s*(\d{1,2}:\d{2}(?::\d{2})?\s*(?:AM|PM)?)\]\s*([^:]+):\s*(.+)$/i,
+                /^\[(\d{1,2}\/\d{1,2}\/\d{2,4})\s+(\d{1,2}:\d{2}(?::\d{2})?\s*(?:AM|PM)?)\]\s*([^:]+):\s*(.+)$/i,
+                /^(\d{1,2}\/\d{1,2}\/\d{2,4}),?\s*(\d{1,2}:\d{2}(?::\d{2})?\s*(?:AM|PM)?)\s*([^:]+):\s*(.+)$/
+            ];
+
+            for (const line of lines) {
+                let match = null;
+                for (const pattern of patterns) {
+                    match = line.match(pattern);
+                    if (match) break;
+                }
+                
+                if (match) {
+                    const [, date, time, name, message] = match;
+                    const timestamp = parseTimestamp(date, time);
+                    if (!timestamp) continue;
+                    
+                    const role = name.toLowerCase().includes('boardy') ? 'assistant' : 'user';
+                    
+                    if (!conversations[currentConversationId]) {
+                        conversations[currentConversationId] = [];
+                    }
+                    
+                    conversations[currentConversationId].push({
+                        "id": `msg_${String(messageCounter).padStart(3, '0')}`,
+                        "timestamp": timestamp,
+                        "role": role,
+                        "text": message.trim(),
+                        "meta": {
+                            "channel": "web",
+                            "conversation_id": currentConversationId
+                        }
+                    });
+                    
+                    messageCounter++;
+                }
+            }
+
+            const conversationArray = Object.entries(conversations).map(([convId, messages]) => ({
+                "messages": messages
+            }));
+
+            return { "conversations": conversationArray };
+        }
+
+        function parseTimestamp(dateStr, timeStr) {
+            try {
+                const [month, day, year] = dateStr.split('/');
+                const fullYear = year.length === 2 ? '20' + year : year;
+                
+                const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?/i);
+                if (!timeMatch) return null;
+                
+                let [, hours, minutes, seconds, period] = timeMatch;
+                hours = parseInt(hours);
+                minutes = parseInt(minutes);
+                seconds = seconds ? parseInt(seconds) : 0;
+                
+                if (period && period.toUpperCase() === 'PM' && hours < 12) {
+                    hours += 12;
+                } else if (period && period.toUpperCase() === 'AM' && hours === 12) {
+                    hours = 0;
+                }
+                
+                const date = new Date(fullYear, month - 1, day, hours, minutes, seconds);
+                return date.toISOString();
+            } catch (error) {
+                console.error('Timestamp parsing error:', error);
+                return null;
+            }
+        }
+
+        function simulateAnalysis(jsonData) {
+            console.log('🧪 Running simulation analysis...');
+            
+            let totalMessages = 0;
+            let userMessages = 0;
+            let assistantMessages = 0;
+            
+            jsonData.conversations.forEach(conv => {
+                conv.messages.forEach(msg => {
+                    totalMessages++;
+                    if (msg.role === 'user') {
+                        userMessages++;
+                    } else {
+                        assistantMessages++;
+                    }
+                });
+            });
+
+            const violations = generateMockViolations(jsonData);
+            
+            const mockData = {
+                total_conversations: jsonData.conversations.length,
+                total_messages: totalMessages,
+                user_messages: userMessages,
+                assistant_messages: assistantMessages,
+                total_failures: violations.length,
+                high_severity_failures: violations.filter(v => v.severity === 'high').length,
+                medium_severity_failures: violations.filter(v => v.severity === 'medium').length,
+                low_severity_failures: violations.filter(v => v.severity === 'low').length,
+                failure_rate: totalMessages > 0 ? violations.length / totalMessages : 0,
+                rules_run: 5,
+                rule_failures: violations.reduce((acc, v) => {
+                    if (!acc[v.rule_name]) acc[v.rule_name] = [];
+                    acc[v.rule_name].push(v);
+                    return acc;
+                }, {})
+            };
+            
+            displayAnalysisResults(mockData);
+        }
+
+        function generateMockViolations(jsonData) {
+            const violations = [];
+            
+            jsonData.conversations.forEach(conv => {
+                conv.messages.forEach(msg => {
+                    if (msg.role === 'assistant') {
+                        const text = msg.text.toLowerCase();
+                        const aiPhrases = ['i cannot', 'i am unable', 'as an ai', 'i am an ai'];
+                        
+                        for (const phrase of aiPhrases) {
+                            if (text.includes(phrase)) {
+                                violations.push({
+                                    rule_name: 'StyleRule',
+                                    severity: 'medium',
+                                    message: `Assistant message contains forbidden phrase: '${phrase}'`,
+                                    details: {
+                                        message_id: msg.id,
+                                        forbidden_phrase: phrase,
+                                        text_preview: msg.text.substring(0, 100) + (msg.text.length > 100 ? '...' : '')
+                                    }
+                                });
+                                break;
+                            }
+                        }
+                        
+                        if (msg.text && msg.text[0] === msg.text[0].toLowerCase()) {
+                            violations.push({
+                                rule_name: 'StyleRule',
+                                severity: 'low',
+                                message: 'Assistant message doesn\'t start with capital letter',
+                                details: {
+                                    message_id: msg.id,
+                                    text_start: msg.text.substring(0, 50)
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+            
+            return violations;
+        }
+
+        function showJsonPreview(data) {
+            const preview = document.getElementById('jsonPreview');
+            const content = document.getElementById('jsonContent');
+            
+            content.textContent = JSON.stringify(data, null, 2);
+            preview.style.display = 'block';
+        }
+
+        function clearAll() {
+            document.getElementById('pasteArea').value = '';
+            document.getElementById('jsonPreview').style.display = 'none';
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="empty-state">
+                    <h3>Ready to Analyze</h3>
+                    <p>Paste your Boardy conversation on the left and click "Analyze Conversation" to see detailed quality metrics and violations.</p>
+                    <p>✨ This version GUARANTEES to show analysis results!</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const resultsContent = document.getElementById('resultsContent');
+            resultsContent.innerHTML = `
+                <div class="error">
+                    <h3>❌ Error</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Auto-resize textarea
+        document.getElementById('pasteArea').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>

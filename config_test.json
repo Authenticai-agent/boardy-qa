@@ -1,0 +1,52 @@
+{
+  "rules": {
+    "enabled_rules": [
+      {
+        "name": "LengthRule",
+        "enabled": true,
+        "config": {
+          "max_length_chars": 1200
+        }
+      },
+      {
+        "name": "QuestionFollowupRule",
+        "enabled": true,
+        "config": {}
+      },
+      {
+        "name": "StyleRule",
+        "enabled": true,
+        "config": {
+          "forbidden_phrases": [
+            "i am an ai",
+            "as an ai",
+            "as a language model",
+            "i cannot",
+            "i am not able",
+            "i am unable",
+            "i don't have",
+            "i do not have"
+          ],
+          "max_exclamation_marks": 3,
+          "require_capitalization": true
+        }
+      },
+      {
+        "name": "TurnEndingRule",
+        "enabled": true,
+        "config": {
+          "max_question_length": 800,
+          "max_question_sentences": 5
+        }
+      },
+      {
+        "name": "ConversationHealthRule",
+        "enabled": true,
+        "config": {
+          "max_consecutive_assistant": 3,
+          "max_message_ratio": 3.0
+        }
+      }
+    ]
+  }
+}

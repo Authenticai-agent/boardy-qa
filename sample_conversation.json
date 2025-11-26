@@ -1,0 +1,208 @@
+{
+  "conversations": [
+    {
+      "messages": [
+        {
+          "id": "msg_001",
+          "timestamp": "2025-11-14T11:40:59Z",
+          "role": "assistant",
+          "text": "24-month plan. Onboard 60-80 practices; 25k+ active users. ~M ARR target; ~80% gross margin; 40-44% projected EBITDA.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_002",
+          "timestamp": "2025-11-14T11:41:09Z",
+          "role": "assistant",
+          "text": "AUTHENTIC AI, 1-Pager Draft (final). Tagline: Automation for the practice. Wellness for the people. What we do: AI-native OS for therapy practices and wellness retreats. Automates operations, runs AI-driven marketing, and extends care via a personalized wellness app that converts 25+ environmental/IAQ signals into daily guidance. Problem: Admin overload: intake, scheduling, billing, payroll, follow-ups. Revenue drag: high no-shows, weak referrals, low retention.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_003",
+          "timestamp": "2025-11-14T11:41:26Z",
+          "role": "assistant",
+          "text": "AUTHENTIC AI, 1-Pager Draft. Tagline: Automation for the practice. Wellness for the people. What we do: AI-native OS for therapy practices and wellness retreats. Automates operations, runs AI marketing, and extends care via a personalized wellness app that turns 25+ environmental/IAQ signals into daily guidance. Problem: Admin overload: intake, scheduling, billing, payroll, follow-ups. Revenue drag: high no-shows, weak referrals, low retention.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_004",
+          "timestamp": "2025-11-14T11:42:46Z",
+          "role": "user",
+          "text": "Boardy, any news on 500 founders program?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_005",
+          "timestamp": "2025-11-14T11:42:54Z",
+          "role": "assistant",
+          "text": "Do you mean the 100 Founders application we talked about, or is this a different program you are asking about?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_006",
+          "timestamp": "2025-11-14T11:43:15Z",
+          "role": "user",
+          "text": "100 founders application",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_007",
+          "timestamp": "2025-11-14T11:43:22Z",
+          "role": "assistant",
+          "text": "Thanks for checking, decisions for the 100 Founders application are not finalized yet. I will share the outcome as soon as the review wraps up, should be soon.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_008",
+          "timestamp": "2025-11-18T20:31:14Z",
+          "role": "user",
+          "text": "Any news on 100 founders application?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_009",
+          "timestamp": "2025-11-18T20:31:23Z",
+          "role": "assistant",
+          "text": "Short answer: no official update yet. Me and my human team are still discussing internally, and someone from my human team will reach out soon once decisions on the 100 Founders application are finalized.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_010",
+          "timestamp": "2025-11-18T21:04:26Z",
+          "role": "user",
+          "text": "Super Boardy program already kicked in and some founders were onboarded already, am I in the program?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_011",
+          "timestamp": "2025-11-18T21:04:37Z",
+          "role": "assistant",
+          "text": "You are right, some founders have already been onboarded. For your 100 Founders / Super Boardy application specifically, me and my human team are still discussing internally and someone from my human team will reach out soon with a clear yes/no and next steps. I cannot confirm you are in (or not) over WhatsApp yet.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_012",
+          "timestamp": "2025-11-20T18:12:15Z",
+          "role": "user",
+          "text": "Boardy, this is my new pitchdeck, could you find potential investors?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_013",
+          "timestamp": "2025-11-20T20:22:53Z",
+          "role": "user",
+          "text": "Boardy?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_014",
+          "timestamp": "2025-11-20T20:23:03Z",
+          "role": "assistant",
+          "text": "I am here \ud83d\ude42 What is going on, Jura?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_015",
+          "timestamp": "2025-11-20T20:23:34Z",
+          "role": "user",
+          "text": "Could you find people you could connect based on the pitch deck?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_016",
+          "timestamp": "2025-11-20T20:23:42Z",
+          "role": "assistant",
+          "text": "Nice, that is exactly what I am built for. I will think for a moment about who in my network might be a strong fit for Authentic AI based on your current pitch.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_017",
+          "timestamp": "2025-11-20T20:23:47Z",
+          "role": "user",
+          "text": "I have attached a pitch deck",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_018",
+          "timestamp": "2025-11-20T20:23:55Z",
+          "role": "assistant",
+          "text": "Love it. I actually cannot read files or images you attach here, so I cannot open the deck directly. If you paste either the text of your deck (or at least: problem, solution, traction, business model, raise details) I can use that to look for relevant people to connect you with.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_019",
+          "timestamp": "2025-11-24T10:58:40Z",
+          "role": "user",
+          "text": "Boardy, how can I be a founder in your Boardy ventures? How can I be selected for funding?",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        },
+        {
+          "id": "msg_020",
+          "timestamp": "2025-11-24T10:59:01Z",
+          "role": "assistant",
+          "text": "Short version: there is not a pay to play or backdoor. To be funded by Boardy Ventures you basically need (1) to be in my 100 Founders / deal flow, which you already are, and (2) to look like one of the highest-conviction opportunities across everything I am seeing.",
+          "meta": {
+            "channel": "web",
+            "conversation_id": "boardy_jurate_001"
+          }
+        }
+      ]
+    }
+  ]
+}

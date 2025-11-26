@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boardy QA Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        .header {
+            border-bottom: 2px solid #e1e5e9;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .metric {
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .metric-label {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        .failure-high { color: #dc2626; }
+        .failure-medium { color: #f59e0b; }
+        .failure-low { color: #10b981; }
+        .conversation {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .conversation-header {
+            background: #f9fafb;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: bold;
+        }
+        .conversation-body {
+            padding: 15px;
+        }
+        .failure-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid;
+            background: #f9fafb;
+        }
+        .failure-high { border-color: #dc2626; }
+        .failure-medium { border-color: #f59e0b; }
+        .failure-low { border-color: #10b981; }
+        .rule-section {
+            margin-bottom: 30px;
+        }
+        .rule-header {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .details {
+            font-size: 0.9em;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+        .severity-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        .severity-high { background: #dc2626; }
+        .severity-medium { background: #f59e0b; }
+        .severity-low { background: #10b981; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Boardy QA Report</h1>
+        <p>Generated: 2025-11-26 15:28:30</p>
+    </div>
+
+    <div class="summary">
+        <h2>Summary</h2>
+        <div class="summary-grid">
+            <div class="metric">
+                <div class="metric-value">2</div>
+                <div class="metric-label">Total Conversations</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">6</div>
+                <div class="metric-label">Total Messages</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Total Failures</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">25.0%</div>
+                <div class="metric-label">Failure Rate</div>
+            </div>
+        </div>
+        <div class="summary-grid" style="margin-top: 15px;">
+            <div class="metric">
+                <div class="metric-value failure-high">0</div>
+                <div class="metric-label">High Severity</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value failure-medium">3</div>
+                <div class="metric-label">Medium Severity</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value failure-low">0</div>
+                <div class="metric-label">Low Severity</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rule-section"><div class="rule-header">StyleRule (3 failures)</div>
+                <div class="failure-item failure-medium">
+                    <div>Assistant message contains forbidden phrase: 'i am an ai'</div>
+                    <div class="details">message_id: msg_006 | forbidden_phrase: i am an ai | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                </div>
+                
+                <div class="failure-item failure-medium">
+                    <div>Assistant message contains forbidden phrase: 'as an ai'</div>
+                    <div class="details">message_id: msg_006 | forbidden_phrase: as an ai | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                </div>
+                
+                <div class="failure-item failure-medium">
+                    <div>Assistant message contains forbidden phrase: 'i don't have'</div>
+                    <div class="details">message_id: msg_006 | forbidden_phrase: i don't have | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                </div>
+                </div>
+
+    <h2>Conversation Details</h2>
+    
+            <div class="conversation">
+                <div class="conversation-header">
+                    Conversation: conv_001
+                    <span style="float: right;">
+                        4 messages | 
+                        0 failures
+                    </span>
+                </div>
+                <div class="conversation-body">
+            <p>✅ No issues found</p></div></div>
+            <div class="conversation">
+                <div class="conversation-header">
+                    Conversation: conv_002
+                    <span style="float: right;">
+                        2 messages | 
+                        3 failures
+                    </span>
+                </div>
+                <div class="conversation-body">
+            
+                    <div class="failure-item failure-medium">
+                        <span class="severity-badge severity-medium">MEDIUM</span>
+                        <strong>StyleRule:</strong> Assistant message contains forbidden phrase: 'i am an ai'
+                        <div class="details">message_id: msg_006 | forbidden_phrase: i am an ai | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                    </div>
+                    
+                    <div class="failure-item failure-medium">
+                        <span class="severity-badge severity-medium">MEDIUM</span>
+                        <strong>StyleRule:</strong> Assistant message contains forbidden phrase: 'as an ai'
+                        <div class="details">message_id: msg_006 | forbidden_phrase: as an ai | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                    </div>
+                    
+                    <div class="failure-item failure-medium">
+                        <span class="severity-badge severity-medium">MEDIUM</span>
+                        <strong>StyleRule:</strong> Assistant message contains forbidden phrase: 'i don't have'
+                        <div class="details">message_id: msg_006 | forbidden_phrase: i don't have | text_preview: I am an AI assistant and I don't have access to specific business hours information. As an AI, I'm a...</div>
+                    </div>
+                    </div></div>
+</body>
+</html>
+        
