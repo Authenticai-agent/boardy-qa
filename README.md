@@ -640,7 +640,7 @@ Contributors will be recognized in our Hall of Fame:
 
 **Built with ❤️ by the Boardy QA Team**
 
-[📧 Contact](mailto:juram@authenticai.ai) 
+[📧 Contact](mailto:jura@authenticai.ai) 
 
 [⭐ Star us on GitHub](https://github.com/Authenticai-agent/boardy-qa) • [🐛 Report Issues](https://github.com/Authenticai-agent/boardy-qa/issues) • [📖 Documentation](https://docs.boardy-qa.com)
 
